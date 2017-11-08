@@ -11,6 +11,8 @@
 # =======================================================================
 import RPi.GPIO as GPIO
 import time
+import getLine
+import movement
 
 # =======================================================================
 #  set GPIO warnings as false
@@ -80,8 +82,6 @@ GPIO.setup(center,   GPIO.IN)
 GPIO.setup(rightOne, GPIO.IN)
 GPIO.setup(rightTwo, GPIO.IN)
 
-
-
 # =======================================================================
 # GPIO.input(leftTwo) method gives the data obtained from leftTwo
 # leftTwo returns (1) : leftTwo detects white playground
@@ -109,14 +109,37 @@ GPIO.setup(rightTwo, GPIO.IN)
 
 try:
     while True:
-       print("leftTwo  detects black line(0) or white ground(1): " + str(GPIO.input(leftTwo)))
-       print("leftOne  detects black line(0) or white ground(1): " + str(GPIO.input(leftOne)))
-       print("center    detects black line(0) or white ground(1): " + str(GPIO.input(center)))
-       print("rightOne detects black line(0) or white ground(1): " + str(GPIO.input(rightOne)))
-       print("rightTwo detects black line(0) or white ground(1): " + str(GPIO.input(rightTwo)))
-       time.sleep(0.3)
+        movement.pwm_setup()
+        line_check = getLine.get_line()
+        print(line_check)
+        if line_check == ['0', '0', '0', '0', '0']:
+            movement.stop()
+        elif line_check == ['0', '1', '1', '1', '1']:
+            movement.go_forward_infinite(25, 90, line_check)
+        elif line_check == ['1', '0', '1', '1', '1']:
+            movement.go_forward_infinite(35, 90, line_check)
+        elif line_check == ['1', '1', '0', '1', '1']:
+            movement.go_forward_infinite(60, 60, line_check)
+        elif line_check == ['1', '1', '1', '0', '1']:
+            movement.go_forward_infinite(90, 35, line_check)
+        elif line_check == ['1', '1', '1', '1', '0']:
+            movement.go_forward_infinite(90, 25, line_check)
+        elif line_check == ['0', '0', '1', '1', '1']:
+            movement.go_forward_infinite(30, 90, line_check)
+        elif line_check == ['1', '0', '0', '1', '1']:
+            movement.go_forward_infinite(60, 30, line_check)
+        elif line_check == ['1', '1', '0', '0', '1']:
+            movement.go_forward_infinite(30, 60, line_check)
+        elif line_check == ['1', '1', '1', '0', '0']:
+            movement.go_forward_infinite(90, 30, line_check)
+        elif line_check == ['1', '1', '1', '1', '1']:
+            movement.go_forward_infinite(30, 90, line_check)
+        else:
+            movement.go_forward(60, 0.2)
+
                
 except KeyboardInterrupt:
+    movement.pwm_low()
     GPIO.cleanup()
 
 

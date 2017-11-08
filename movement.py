@@ -10,7 +10,8 @@ import RPi.GPIO as GPIO
 
 # import needed library
 import time
-import ultrasonicSensor as ultra
+import ultrasonicSensor
+import getLine
 
 # set GPIO warnings as false
 GPIO.setwarnings(False)
@@ -131,19 +132,22 @@ RightPwm = GPIO.PWM(MotorRight_PWM, 100)
 dis = 15  # because of getDistance method(to break go_forward_infinite loop)
 
 
-def go_forward_infinite(speed):
+def go_forward_infinite(left_speed, right_speed, check_list):
     left_motor_direction(left_forward)
     GPIO.output(MotorLeft_PWM, GPIO.HIGH)
     right_motor_direction(right_forward)
     GPIO.output(MotorRight_PWM, GPIO.HIGH)
     # to avoid collision between go_forward_any method and turn method, insert a infinite loop
     while 1:
-        distance = ultra.measureDistance()
-        if distance < dis:
-            stop()
+        # distance = ultrasonicSensor.measureDistance()
+        # if distance < dis:
+        #     stop()
+        #     break
+        check = getLine.get_line()
+        if check != check_list:
             break
-        LeftPwm.ChangeDutyCycle(speed)
-        RightPwm.ChangeDutyCycle(speed)
+        LeftPwm.ChangeDutyCycle(left_speed)
+        RightPwm.ChangeDutyCycle(right_speed)
 
 
 # =======================================================================
@@ -229,8 +233,8 @@ def pwm_low():
 # =======================================================================
 if __name__ == "__main__":
     try:
-        go_forward(60, 2)
-        go_backward(60, 2)
+        go_forward_infinite(60, 60, track.get_line())
+        go_backward_infinite(60)
         stop()
     except KeyboardInterrupt:
         stop()
