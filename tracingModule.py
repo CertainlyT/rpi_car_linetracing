@@ -20,29 +20,29 @@ def line_tracing():
         if line_check == ['0', '0', '0', '0', '0']:
             movement.stop()
         elif line_check == ['0', '1', '1', '1', '1']:
-            movement.go_forward_infinite(25, 90, line_check)
+            movement.go_forward_infinite(15, 100, line_check)
         elif line_check == ['1', '0', '1', '1', '1']:
-            movement.go_forward_infinite(35, 90, line_check)
+            movement.go_forward_infinite(20, 90, line_check)
         elif line_check == ['1', '1', '0', '1', '1']:
-            movement.go_forward_infinite(60, 60, line_check)
+            movement.go_forward_infinite(70, 70, line_check)
         elif line_check == ['1', '1', '1', '0', '1']:
-            movement.go_forward_infinite(90, 35, line_check)
+            movement.go_forward_infinite(90, 20, line_check)
         elif line_check == ['1', '1', '1', '1', '0']:
-            movement.go_forward_infinite(90, 25, line_check)
+            movement.go_forward_infinite(100, 15, line_check)
         elif line_check == ['0', '0', '1', '1', '1']:
             movement.go_forward_infinite(30, 100, line_check)
         elif line_check == ['1', '0', '0', '1', '1']:
-            movement.go_forward_infinite(60, 55, line_check)
+            movement.go_forward_infinite(70, 60, line_check)
         elif line_check == ['1', '1', '0', '0', '1']:
-            movement.go_forward_infinite(55, 60, line_check)
+            movement.go_forward_infinite(60, 70, line_check)
         elif line_check == ['1', '1', '1', '0', '0']:
             movement.go_forward_infinite(100, 30, line_check)
         elif line_check == ['1', '1', '0', '0', '0']:
-            movement.go_forward_infinite(50, 60, line_check)
+            movement.go_forward_infinite(55, 70, line_check)
         elif line_check == ['1', '0', '0', '0', '1']:
-            movement.go_forward_infinite(60, 60, line_check)
+            movement.go_forward_infinite(70, 70, line_check)
         elif line_check == ['0', '0', '0', '1', '1']:
-            movement.go_forward_infinite(60, 50, line_check)
+            movement.go_forward_infinite(70, 55, line_check)
         elif line_check == ['1', '1', '1', '1', '1']:
             time.sleep(0.8)
         else:
