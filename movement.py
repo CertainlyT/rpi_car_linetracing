@@ -132,6 +132,8 @@ RightPwm = GPIO.PWM(MotorRight_PWM, 100)
 
 
 def avoid():
+    stop()
+    time.sleep(0.5)
     turning.rightPointTurn(70, 0.4)
     stop()
     time.sleep(0.5)
