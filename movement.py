@@ -12,6 +12,7 @@ import RPi.GPIO as GPIO
 import time
 import ultrasonicSensor
 import getLine
+import turning
 
 # set GPIO warnings as false
 GPIO.setwarnings(False)
@@ -129,7 +130,22 @@ RightPwm = GPIO.PWM(MotorRight_PWM, 100)
 #  object to go forward without any limitation of running_time
 # =======================================================================
 
-dis = 15  # because of getDistance method(to break go_forward_infinite loop)
+
+def avoid():
+    turning.rightPointTurn(70, 0.4)
+    stop()
+    time.sleep(0.5)
+    go_forward(70, 1)
+    stop()
+    time.sleep(0.5)
+    turning.leftPointTurn(70, 0.4)
+    stop()
+    time.sleep(0.5)
+    go_forward(70, 0.7)
+    stop()
+    time.sleep(0.5)
+    turning.leftPointTurn(70, 0.4)
+    stop()
 
 
 def go_forward_infinite(left_speed, right_speed, check_list):
@@ -139,10 +155,6 @@ def go_forward_infinite(left_speed, right_speed, check_list):
     GPIO.output(MotorRight_PWM, GPIO.HIGH)
     # to avoid collision between go_forward_any method and turn method, insert a infinite loop
     while 1:
-        # distance = ultrasonicSensor.measureDistance()
-        # if distance < dis:
-        #     stop()
-        #     break
         check = getLine.get_line()
         if check != check_list:
             break

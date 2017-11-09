@@ -22,7 +22,7 @@ GPIO.setup(echo, GPIO.IN)
 # get distance using ultra wave sensor
 def measureDistance():
     GPIO.output(trig, False)
-    time.sleep(0.1)  # modified to 0.1 for detailed measurement
+    time.sleep(0.5)  # modified to 0.1 for detailed measurement
     GPIO.output(trig, True)
     time.sleep(0.00001)
     GPIO.output(trig, False)
@@ -36,3 +36,7 @@ def measureDistance():
     distance = pulse_duration * 17000
     distance = round(distance, 2)
     return distance
+
+if __name__ == "__main__":
+    while 1:
+        print(measureDistance())
