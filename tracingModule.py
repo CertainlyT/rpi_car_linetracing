@@ -1,24 +1,22 @@
 #########################################################################
-### Date: 2017/10/13
-### file name: trackingModule.py
+### Date: 2017/11/9
+### file name: tracingModule.py
 ### Purpose: this code has been generated for the five-way tracking sensor
 ###         to perform the decision of direction
-###
 #########################################################################
 
 # =======================================================================
-# import GPIO library and time module
+# import needed library
 # =======================================================================
-import RPi.GPIO as GPIO
+import time
 import getLine
 import movement
 
 
-try:
+def line_tracing():
     while True:
         movement.pwm_setup()
         line_check = getLine.get_line()
-        print(line_check)
         if line_check == ['0', '0', '0', '0', '0']:
             movement.stop()
         elif line_check == ['0', '1', '1', '1', '1']:
@@ -46,13 +44,6 @@ try:
         elif line_check == ['0', '0', '0', '1', '1']:
             movement.go_forward_infinite(60, 50, line_check)
         elif line_check == ['1', '1', '1', '1', '1']:
-            movement.go_forward_infinite(30, 100, line_check)
+            time.sleep(0.8)
         else:
             movement.stop()
-
-               
-except KeyboardInterrupt:
-    movement.pwm_low()
-    GPIO.cleanup()
-
-

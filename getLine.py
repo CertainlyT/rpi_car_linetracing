@@ -16,7 +16,7 @@ GPIO.setmode(GPIO.BOARD)
 # control direction
 #
 #  leftTwo    leftOne     center     rightOne     rightTwo
-#       16            18              22             40              32
+#    16          18         22          40           32
 #
 # led turns on (1) : tracking sensor led detects white playground
 # led turns off(0) : tracking sensor led detects black line
