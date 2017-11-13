@@ -17,15 +17,15 @@ def line_tracing():
         movement.pwm_setup()
         line_check = getLine.get_line()
         if line_check == ['0', '1', '1', '1', '1']:
-            movement.go_forward_infinite(5, 90, line_check)
+            movement.go_forward_infinite(5, 100, line_check)
         elif line_check == ['1', '0', '1', '1', '1']:
-            movement.go_forward_infinite(10, 80, line_check)
+            movement.go_forward_infinite(10, 90, line_check)
         elif line_check == ['1', '1', '0', '1', '1']:
             movement.go_forward_infinite(50, 50, line_check)
         elif line_check == ['1', '1', '1', '0', '1']:
-            movement.go_forward_infinite(80, 10, line_check)
+            movement.go_forward_infinite(90, 10, line_check)
         elif line_check == ['1', '1', '1', '1', '0']:
-            movement.go_forward_infinite(90, 5, line_check)
+            movement.go_forward_infinite(100, 5, line_check)
         elif line_check == ['0', '0', '1', '1', '1']:
             movement.go_forward_infinite(20, 90, line_check)
         elif line_check == ['1', '0', '0', '1', '1']:

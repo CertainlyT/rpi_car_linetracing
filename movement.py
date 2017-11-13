@@ -13,6 +13,8 @@ import time
 import ultrasonicSensor
 import getLine
 import turning
+import threading
+import Queue
 
 # set GPIO warnings as false
 GPIO.setwarnings(False)
@@ -134,24 +136,28 @@ RightPwm = GPIO.PWM(MotorRight_PWM, 100)
 def avoid():
     stop()
     time.sleep(0.5)
-    turning.rightPointTurn(70, 0.4)
+    turning.rightPointTurn(60, 0.35)
     stop()
     time.sleep(0.5)
-    go_forward(70, 1)
+    go_forward(60, 1)
     stop()
     time.sleep(0.5)
-    turning.leftPointTurn(70, 0.4)
+    turning.leftPointTurn(60, 0.35)
     stop()
     time.sleep(0.5)
-    go_forward(70, 0.7)
+    go_forward(60, 0.5)
     stop()
     time.sleep(0.5)
-    turning.leftPointTurn(70, 0.4)
+    turning.leftPointTurn(60, 0.35)
     stop()
     time.sleep(0.5)
+
+
+dis = 15
 
 
 def go_forward_infinite(left_speed, right_speed, check_list):
+    q = Queue.Queue()
     left_motor_direction(left_forward)
     GPIO.output(MotorLeft_PWM, GPIO.HIGH)
     right_motor_direction(right_forward)
@@ -163,6 +169,14 @@ def go_forward_infinite(left_speed, right_speed, check_list):
             break
         LeftPwm.ChangeDutyCycle(left_speed)
         RightPwm.ChangeDutyCycle(right_speed)
+        t = threading.Thread(target=ultrasonicSensor.measureDistance, name="SensorThread", args=[q],)
+        t.start()
+        t.join()
+        distance = q.get()
+        print(distance)
+        if dis >= distance >= 5:
+            avoid()
+            break
 
 
 # =======================================================================
