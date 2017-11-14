@@ -13,8 +13,7 @@ import time
 import ultrasonicSensor
 import getLine
 import turning
-import threading
-import Queue
+
 
 # set GPIO warnings as false
 GPIO.setwarnings(False)
@@ -145,15 +144,19 @@ def avoid():
     turning.leftPointTurn(60, 0.35)
     stop()
     time.sleep(0.5)
-    go_forward(60, 0.5)
+    go_forward(60, 0.6)
     stop()
     time.sleep(0.5)
-    turning.leftPointTurn(60, 0.3)
+    turning.leftPointTurn(60, 0.35)
     stop()
     time.sleep(0.5)
+    while getLine.get_line() == ["1", "1", "1", "1", "1"]:
+        go_forward(60, 0.1)
+    while getLine.get_line() == ["0", "1", "1", "1", "1"] or getLine.get_line() == ["0", "0", "1", "1", "1"]:
+        go_forward_infinite(70, 40, getLine.get_line())
 
 
-dis = 15
+dis = 11
 
 
 def go_forward_infinite(left_speed, right_speed, check_list):
