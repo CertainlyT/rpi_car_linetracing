@@ -21,9 +21,9 @@ GPIO.setup(echo, GPIO.IN)
 
 
 # get distance using ultra wave sensor
-def measureDistance(queue):
+def measureDistance():
     GPIO.output(trig, False)
-    time.sleep(0.1)  # modified to 0.1 for detailed measurement
+    # time.sleep(0.1)  # modified to 0.1 for detailed measurement
     GPIO.output(trig, True)
     time.sleep(0.00001)
     GPIO.output(trig, False)
@@ -36,8 +36,9 @@ def measureDistance(queue):
     pulse_duration = pulse_end - pulse_start
     distance = pulse_duration * 17000
     distance = round(distance, 2)
-    return_args = distance
-    queue.put(return_args)
+    return distance
+    # return_args = distance
+    # queue.put(return_args)
 
 
 if __name__ == "__main__":

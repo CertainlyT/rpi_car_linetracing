@@ -148,7 +148,7 @@ def avoid():
     go_forward(60, 0.5)
     stop()
     time.sleep(0.5)
-    turning.leftPointTurn(60, 0.35)
+    turning.leftPointTurn(60, 0.3)
     stop()
     time.sleep(0.5)
 
@@ -157,26 +157,28 @@ dis = 15
 
 
 def go_forward_infinite(left_speed, right_speed, check_list):
-    q = Queue.Queue()
+    # q = Queue.Queue()
+    # t = threading.Thread(target=ultrasonicSensor.measureDistance, name="SensorThread", args=[q], )
     left_motor_direction(left_forward)
     GPIO.output(MotorLeft_PWM, GPIO.HIGH)
     right_motor_direction(right_forward)
     GPIO.output(MotorRight_PWM, GPIO.HIGH)
     # to avoid collision between go_forward_any method and turn method, insert a infinite loop
+    # t.start()
     while 1:
         check = getLine.get_line()
         if check != check_list:
             break
         LeftPwm.ChangeDutyCycle(left_speed)
         RightPwm.ChangeDutyCycle(right_speed)
-        t = threading.Thread(target=ultrasonicSensor.measureDistance, name="SensorThread", args=[q],)
-        t.start()
-        t.join()
-        distance = q.get()
-        print(distance)
+        distance = ultrasonicSensor.measureDistance()
+        # t.join()
+        # distance = q.get()
+        # print(distance)
         if dis >= distance >= 5:
             avoid()
             break
+    # t.join()
 
 
 # =======================================================================
