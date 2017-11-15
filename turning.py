@@ -59,7 +59,7 @@ def left_motor_direction(direction):
     if direction:
         GPIO.output(MotorLeft_A, GPIO.HIGH)
         GPIO.output(MotorLeft_B, GPIO.LOW)
-    elif direction == 0:
+    elif not direction:
         GPIO.output(MotorLeft_A, GPIO.LOW)
         GPIO.output(MotorLeft_B, GPIO.HIGH)
     else:
@@ -80,7 +80,7 @@ def right_motor_direction(direction):
     if direction:
         GPIO.output(MotorRight_A, GPIO.HIGH)
         GPIO.output(MotorRight_B, GPIO.LOW)
-    elif direction == 0:
+    elif not direction:
         GPIO.output(MotorRight_A, GPIO.LOW)
         GPIO.output(MotorRight_B, GPIO.HIGH)
     else:

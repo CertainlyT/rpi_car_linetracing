@@ -7,7 +7,7 @@
 ######################################################################
 
 import RPi.GPIO as GPIO  # import GPIO library
-import time # import needed library
+import time  # import needed library
 import Queue
 
 GPIO.setmode(GPIO.BOARD)
@@ -34,7 +34,9 @@ def measureDistance():
     while GPIO.input(echo) == 1:
         pulse_end = time.time()
     pulse_duration = pulse_end - pulse_start
+    print(pulse_duration)
     distance = pulse_duration * 17000
+    print(distance)
     distance = round(distance, 2)
     return distance
     # return_args = distance

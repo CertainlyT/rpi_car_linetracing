@@ -16,35 +16,33 @@ def line_tracing():
     while True:
         movement.pwm_setup()
         line_check = getLine.get_line()
-        if line_check == ['0', '1', '1', '1', '1']:
-            movement.go_forward_infinite(5, 100, line_check)
+        if line_check == ['1', '1', '1', '1', '1']:
+            movement.go_forward_infinite(60, 60, line_check)
+        elif line_check == ['0', '1', '1', '1', '1']:
+            movement.go_forward_infinite(10, 80, line_check)
         elif line_check == ['1', '0', '1', '1', '1']:
-            movement.go_forward_infinite(40, 70, line_check)
+            movement.go_forward_infinite(20, 50, line_check)
         elif line_check == ['1', '1', '0', '1', '1']:
             movement.go_forward_infinite(60, 60, line_check)
         elif line_check == ['1', '1', '1', '0', '1']:
-            movement.go_forward_infinite(70, 40, line_check)
+            movement.go_forward_infinite(50, 20, line_check)
         elif line_check == ['1', '1', '1', '1', '0']:
-            movement.go_forward_infinite(100, 5, line_check)
+            movement.go_forward_infinite(80, 10, line_check)
         elif line_check == ['0', '0', '1', '1', '1']:
-            movement.go_forward_infinite(20, 90, line_check)
+            movement.go_forward_infinite(10, 80, line_check)
         elif line_check == ['1', '0', '0', '1', '1']:
-            movement.go_forward_infinite(60, 50, line_check)
+            movement.go_forward_infinite(30, 80, line_check)
         elif line_check == ['1', '1', '0', '0', '1']:
-            movement.go_forward_infinite(50, 60, line_check)
+            movement.go_forward_infinite(80, 30, line_check)
         elif line_check == ['1', '1', '1', '0', '0']:
-            movement.go_forward_infinite(90, 20, line_check)
-        elif line_check == ['1', '1', '0', '0', '0']:
-            movement.go_forward_infinite(50, 60, line_check)
+            movement.go_forward_infinite(80, 10, line_check)
+        elif line_check == ['0', '0', '0', '1', '1']:
+            movement.go_forward_infinite(10, 80, line_check)
         elif line_check == ['1', '0', '0', '0', '1']:
             movement.go_forward_infinite(60, 60, line_check)
-        elif line_check == ['0', '0', '0', '1', '1']:
-            movement.go_forward_infinite(60, 50, line_check)
-        elif line_check == ['1', '1', '1', '1', '1']:
-            movement.go_forward_infinite(60, 60, line_check)
+        elif line_check == ['1', '1', '0', '0', '0']:
+            movement.go_forward_infinite(80, 10, line_check)
         elif line_check == ['0', '0', '0', '0', '1']:
-            movement.go_forward_infinite(70, 55, line_check)
+            movement.go_forward_infinite(50, 60, line_check)
         elif line_check == ['1', '0', '0', '0', '0']:
-            movement.go_forward_infinite(55, 70, line_check)
-        else:
-            movement.stop()
+            movement.go_forward_infinite(60, 50, line_check)
