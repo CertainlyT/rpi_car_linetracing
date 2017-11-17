@@ -135,26 +135,41 @@ RightPwm = GPIO.PWM(MotorRight_PWM, 100)
 def avoid():
     stop()
     time.sleep(0.5)
-    turning.rightPointTurn(60, 0.45)
+    turning.rightPointTurn(60, 0.55)
     stop()
     time.sleep(0.5)
-    go_forward(60, 1.2)
+    go_forward(60, 1)
     stop()
     time.sleep(0.5)
-    turning.leftPointTurn(60, 0.45)
+    turning.leftPointTurn(55, 0.43)
     stop()
     time.sleep(0.5)
-    go_forward(60, 1.2)
+    go_forward(65, 0.9)
     stop()
     time.sleep(0.5)
-    turning.leftPointTurn(60, 0.45)
+    check = 0
+    for i in range(8):
+        line = getLine.get_line()
+        if line != ["1", "1", "1", "1", "1"]:
+            check = 1
+        print(check)
+        turning.leftPointTurn(60, 0.07)
     stop()
     time.sleep(0.5)
+    if check == 0:
+        while getLine.get_line() == ["1", "1", "1", "1", "1"]:
+            go_forward(50, 0.1)
+        stop()
+        time.sleep(0.5)
+    if getLine.get_line() != ["1", "1", "1", "1", "1"]:
+        while getLine.get_line() != ["1", "1", "1", "1", "1"]:
+            go_forward(50, 0.2)
+        stop()
+        time.sleep(0.5)
     while getLine.get_line() == ["1", "1", "1", "1", "1"]:
-        go_forward(50, 0.1)
+        turning.rightSwingTurn(70, 0.2)
     stop()
     time.sleep(0.5)
-    turning.rightSwingTurn(70, 0.2)
 
 
 dis = 10
@@ -176,12 +191,9 @@ def go_forward_infinite(left_speed, right_speed, check_list):
         LeftPwm.ChangeDutyCycle(left_speed)
         RightPwm.ChangeDutyCycle(right_speed)
         distance = ultrasonicSensor.measureDistance()
-        # t.join()
-        # distance = q.get()
-        # print(distance)
-        # if dis >= distance >= 5:
-        #     avoid()
-        #     break
+        if dis >= distance >= 5:
+            avoid()
+            break
     # t.join()
 
 
