@@ -135,16 +135,16 @@ RightPwm = GPIO.PWM(MotorRight_PWM, 100)
 def avoid():
     stop()
     time.sleep(0.5)
-    turning.rightPointTurn(60, 0.55)
+    turning.rightPointTurn(75, 0.4)
     stop()
     time.sleep(0.5)
-    go_forward(60, 1)
+    go_forward(70, 1)
     stop()
     time.sleep(0.5)
-    turning.leftPointTurn(55, 0.43)
+    turning.leftPointTurn(75, 0.35)
     stop()
     time.sleep(0.5)
-    go_forward(65, 0.9)
+    go_forward(70, 1)
     stop()
     time.sleep(0.5)
     check = 0
@@ -153,17 +153,17 @@ def avoid():
         if line != ["1", "1", "1", "1", "1"]:
             check = 1
         print(check)
-        turning.leftPointTurn(60, 0.07)
+        turning.leftPointTurn(60, 0.075)
     stop()
     time.sleep(0.5)
     if check == 0:
         while getLine.get_line() == ["1", "1", "1", "1", "1"]:
-            go_forward(50, 0.1)
+            go_forward(60, 0.1)
         stop()
         time.sleep(0.5)
     if getLine.get_line() != ["1", "1", "1", "1", "1"]:
         while getLine.get_line() != ["1", "1", "1", "1", "1"]:
-            go_forward(50, 0.2)
+            go_forward(70, 0.2)
         stop()
         time.sleep(0.5)
     while getLine.get_line() == ["1", "1", "1", "1", "1"]:
